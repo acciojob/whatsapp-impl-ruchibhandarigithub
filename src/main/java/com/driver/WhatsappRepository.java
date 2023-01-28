@@ -66,11 +66,10 @@ public class WhatsappRepository {
         //Throw "Group does not exist" if the mentioned group does not exist
         //Throw "You are not allowed to send message" if the sender is not a member of the group
         //If the message is sent successfully, return the final number of messages in that group.
-        int Total =0;
-       if(groupUserMap.containsKey(group.getName())==false){
-           throw new Exception("Group does not exist");
+       if(!groupUserMap.containsKey(group)){
+           throw new Exception("Group does not exst");
        }
-       if(this.userExistInGroup(group,sender)==false){
+       if(!this.userExistInGroup(group,sender)){
            throw new Exception("You are not allowed to send message");
        }
 
@@ -88,13 +87,13 @@ public class WhatsappRepository {
         //Throw "Approver does not have rights" if the approver is not the current admin of the group
         //Throw C if the user is not a part of the group
         //Change the admin of the group to "user" and return "SUCCESS". Note that at one time there is only one admin and the admin rights are transferred from approver to user.
-        if(groupUserMap.containsKey(group)==false){
+        if(groupUserMap.containsKey(group)){
             throw new Exception("Group does not exist");
         }
-        if(this.userExistInGroup(group,user)==false){
+        if(!this.userExistInGroup(group,user)){
             throw new Exception("User is not a participant");
         }
-        if(adminMap.get(group).equals(approver)==false){
+        if(!adminMap.get(group).equals(approver)){
             throw new Exception("Approver does not have rights");
         }
         adminMap.put(group,user);
